@@ -1,0 +1,26 @@
+{
+  "name": "ipl",
+  "version": "0.1.1",
+  "description": "Initial page loader toolkit for Javascript applications",
+  "author": {
+    "name": "Max Motovilov",
+    "email": "max@motovilov.com"
+  },
+  "main": "ipl.js",
+  "files": [
+    "package.json",
+    "ipl.js",
+    "include",
+	"lib"
+  ],
+  "dependencies": {
+	"node-promise": ">= 0.5.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MaxMotovilov/ipl.js.git"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
