@@ -7,23 +7,14 @@ var path = require( 'path' ),
 	stream = require( './lib/stream_utils' );
 
 function IPL( config ) {
-	if( !(this instanceof IPL) )
-		return new IPL( config );
-
-	var include = config.include;
-
-	if( !include ) {
-		this.include = stream.opener( path.join( __dirname, 'include' ) );
-	} else {
-		include = [].concat( include, path.join( __dirname, 'include' ) );
-		
-		this.include = function( what ) {
-			var o = include.map( function( x ) {
-				return typeof x === 'function' ? x.bind( null, what ) : stream.opener( path.join( x, what ) );
-			} );
-			return o.reduce( stream.select.bind( stream ), o.shift()() );
-		}
-	}
+	this.include = config.include
+		? stream.select.bind( stream,
+			[].concat( config.include, path.join( __dirname, 'include' ) )
+			  .map( function( x ) {
+					return typeof x === 'function' ? x : stream.opener( x );
+			  } )
+		)
+		: stream.opener( path.join( __dirname, 'include' ) );
 
 	if( config.env )
 		this.env = config.env;
@@ -33,5 +24,11 @@ function IPL( config ) {
 
 IPL.prototype = require( './lib/prototype' );
 
-module.exports = IPL;
+module.exports = function( config ) {
+	var ipl = new IPL( config || {} );
+	if( arguments.length > 1 )
+		return ipl.generate.apply( ipl, Array.prototype.slice.call( arguments, 1 ) );
+	else
+		return ipl.generate.bind( ipl );
+}
 
