@@ -7,6 +7,8 @@ var path = require( 'path' ),
 	stream = require( './lib/stream_utils' );
 
 function IPL( config ) {
+
+
 	this.include = config.include
 		? stream.select.bind( stream,
 			[].concat( config.include, path.join( __dirname, 'include' ) )
@@ -15,6 +17,8 @@ function IPL( config ) {
 			  } )
 		)
 		: stream.opener( path.join( __dirname, 'include' ) );
+
+	this.encoding = config.encoding || null;
 
 	if( config.env )
 		this.env = config.env;
