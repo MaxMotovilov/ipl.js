@@ -19,7 +19,7 @@ function IPL( config ) {
 	if( config.env )
 		this.env = config.env;
 
-	this.cache = {};
+	this.cache = { html: {}, ipl: {} };
 }
 
 IPL.prototype = require( './lib/prototype' );
