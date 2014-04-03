@@ -8,7 +8,6 @@ var path = require( 'path' ),
 
 function IPL( config ) {
 
-
 	this.include = config.include
 		? stream.select.bind( stream,
 			[].concat( config.include, path.join( __dirname, 'include' ) )
