@@ -18,9 +18,8 @@ function IPL( config ) {
 		: stream.opener( path.join( __dirname, 'include' ) );
 
 	this.encoding = config.encoding || null;
-
-	if( config.env )
-		this.env = config.env;
+	this.dontRun = config.dontRun || false;
+	this.env = config.env || {};
 
 	this.cache = { html: {}, ipl: {} };
 }
