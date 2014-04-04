@@ -8,14 +8,12 @@ var path = require( 'path' ),
 
 function IPL( config ) {
 
-	this.include = config.include
-		? stream.select.bind( stream,
-			[].concat( config.include, path.join( __dirname, 'include' ) )
-			  .map( function( x ) {
-					return typeof x === 'function' ? x : stream.opener( x );
-			  } )
-		)
-		: stream.opener( path.join( __dirname, 'include' ) );
+	this.include = stream.select.bind( stream,
+		[].concat( config.include || [], path.join( __dirname, 'include' ) )
+		  .map( function( x ) {
+				return typeof x === 'function' ? x : stream.opener( x );
+		  } )
+	);
 
 	this.encoding = config.encoding || null;
 	this.dontRun = config.dontRun || false;
