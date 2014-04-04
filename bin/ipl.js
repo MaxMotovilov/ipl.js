@@ -13,7 +13,7 @@ if( process.argv.length < 3 ) {
 	process.exit( 1 );
 }
 
-var	config = { env: {} }, input, args = [],
+var	config = {}, env = {}, input, args = [],
 	rest = process.argv.slice(2).reduce( function( prior, arg ) {
 		var s;
 
@@ -37,7 +37,7 @@ if( rest ) {
 	process.exit( 1 );
 }
 
-ipl( config, input || process.stdin, input && /[.]js$/.test( input ), args );
+ipl( config, input || process.stdin, env, input && /[.]js$/.test( input ), args ).pipe( process.stdout );
 
 function addArg( name, value ) {
 	if( name == 'dontRun' )
@@ -51,7 +51,7 @@ function addArg( name, value ) {
 		path.slice(0,path.length-1)
 		    .reduce( function( obj, f ) {
 				return obj[f] || ( obj[f] = {} );
-			}, config.env )[path[path.length-1]] 
+			}, env )[path[path.length-1]] 
 		= parseValue( value );
 	}
 	return null;
