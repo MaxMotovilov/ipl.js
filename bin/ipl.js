@@ -37,7 +37,22 @@ if( rest ) {
 	process.exit( 1 );
 }
 
-ipl( config, input || process.stdin, env, input && /[.]js$/.test( input ), args ).pipe( process.stdout );
+ipl( config, input || process.stdin, env, input && /[.]js$/.test( input ), args )
+	.on( 'error', function( err ) {
+		console.log( 
+			(err.tagname && (
+				err.tagname +
+				(err.filename && (
+					" (" + err.filename +
+					(err.line ? ' [' + err.line + ']' : "") +
+					")"
+				) || "") + ": "
+			) || "") +
+			err.stack
+		);
+		process.exit( 1 );
+	} )
+	.pipe( process.stdout );
 
 function addArg( name, value ) {
 	if( name == 'dontRun' )
