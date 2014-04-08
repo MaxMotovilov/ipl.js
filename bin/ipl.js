@@ -8,12 +8,12 @@ var ipl = require( '../ipl' );
 if( process.argv.length < 3 ) {
 	process.stderr.write( 
 		process.argv.join( ' ' ) + 
-		" [--include[=]Path[,Path...]] [--dontRun] [--Name[.Name...][=]Value...] [<]Input [Arg...] [>Output]\n"
+		" [--include[=]Path[,Path...]] [--dontRun] [--script] [--Name[.Name...][=]Value...] [<]Input [Arg...] [>Output]\n"
 	);
 	process.exit( 1 );
 }
 
-var	config = {}, env = {}, input, args = [],
+var	config = {}, env = {}, input, args = [], is_script = false,
 	rest = process.argv.slice(2).reduce( function( prior, arg ) {
 		var s;
 
@@ -37,7 +37,7 @@ if( rest ) {
 	process.exit( 1 );
 }
 
-ipl( config, input || process.stdin, env, input && /[.]js$/.test( input ), args )
+ipl( config, input || process.stdin, env, input && /[.]js$/.test( input ) || is_script, args )
 	.on( 'error', function( err ) {
 		console.log( 
 			(err.tagname && (
@@ -57,6 +57,8 @@ ipl( config, input || process.stdin, env, input && /[.]js$/.test( input ), args 
 function addArg( name, value ) {
 	if( name == 'dontRun' )
 		config.dontRun = true;
+	else if( name == 'script' )
+		is_script = true;
 	else if( value == null )
 		return name;
 	else if( name == 'include' )

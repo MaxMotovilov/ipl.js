@@ -6,23 +6,31 @@
     "name": "Max Motovilov",
     "email": "max@motovilov.com"
   },
+
+  "license" : "BSD-3-Clause",
+
   "main": "ipl.js",
+
   "files": [
+	"LICENSE",
     "package.json",
     "ipl.js",
     "include",
 	"lib"
   ],
+
   "dependencies": {
 	"node-promise": ">= 0.5.10",
 	"memorystream": ">= 0.2"
   },
+
   "repository": {
     "type": "git",
     "url": "git://github.com/MaxMotovilov/ipl.js.git"
   },
+
   "engines": {
-    "node": "*"
+    "node": ">= 0.10"
   }
 }
 
