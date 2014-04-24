@@ -19,7 +19,7 @@ function IPL( config ) {
 	this.dontRun = config.dontRun || false;
 	this.env = config.env || {};
 
-	this.cache = { html: {}, ipl: {} };
+	this.cache = { html: {}, ipl: {}, build: {} };
 }
 
 IPL.prototype = require( './lib/prototype' );
