@@ -21,7 +21,8 @@
 
   "dependencies": {
 	"node-promise": ">= 0.5.10",
-	"memorystream": ">= 0.2"
+	"memorystream": ">= 0.2",
+	"js-beautify": ">= 1.4"
   },
 
   "repository": {
