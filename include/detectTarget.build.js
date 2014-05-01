@@ -35,6 +35,7 @@
 			for( var i=1; i<m.length; ++i )
 				if( m[i] )
 					return make$Target( requested$Targets.values[i-1], m[i] );
+		return { name: "other" }
 	}
 
 	function make$Target( v, m ) {
