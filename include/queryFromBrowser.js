@@ -1,17 +1,16 @@
 @ global: request @
 
 @once@
-	var query = 
+	var query =
 		@@@ if( request && request.query ) { @@@
 			@= request.query @
 		@@@ } else { @@@
 			(function( s ) {
-				var r = {},
-					splittedParams = s.split('&');
-				for (var i = 0, e = splittedParams[i]; i < splittedParams.length; i++, e = splittedParams[i]) {
-					e = e.split('=');
-					r[e[0]] = e[1] || "";
-				}
+				var r = {};
+				s.replace( /([^=&]+)(=?)([^&]*)/g, function( _1, key, _2, value ){
+					r[key] = value;
+					return "";
+				} );
 				return r;
 			})( window.location.search.substr( 1 ) )
 		@@@ } @@@
