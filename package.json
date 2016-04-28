@@ -1,6 +1,6 @@
 {
   "name": "ipl",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "description": "Initial page loader toolkit for Javascript applications",
   "author": {
     "name": "Max Motovilov",
