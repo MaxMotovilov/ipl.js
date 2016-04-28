@@ -134,6 +134,10 @@ Instead of string arguments, passed arbitrary build-time expressions. Note howev
 content executes therefore variable values assigned by the build scripts will not be visible in these argument expressions. The environment variables
 are, of course, visible -- and so is the `arguments` array from the embedding fragment.
 
+	@build:name@
+
+Use to directly embed a build script fragment into either HTML or IPL script content. Arguments for the fragment can be passed after the `name`.
+
 	@html:name@
 
 Use to directly embed an HTML fragment into IPL script content. Arguments for the fragment can be passed after the `name`.
@@ -147,3 +151,18 @@ can be passed after the `name`.
 	@ipl:=expression@
 
 Dynamically compute the name of the fragment to load (can also pass arguments into it).
+
+### Miscellaneous
+
+	@global:name1,name2@
+
+Injects (undefined) variables into the environment if they are not passed by the activating code to protect against `ReferenceError` when they are accessed.
+
+	@promise:name:=expression@
+
+Use to add asynchronously resolved build-time dependencies to the fragment. The build-time `expression` is evaluated *before* the fragment is included; if 
+its value is a promise (any object with method `then()`: IPL does not depend on a specific implementation but expects it to behave in the generally accepted 
+way), the fragment will not be evaluated until it resolves. Build-time variable `name` is added to the scope of the fragment (and any other fragments it may include). 
+
+Multiple `@promise@` statements may appear in the same fragment: their location within the code is unimportant because expressions are resolved outside the
+fragment! They should not, of course, refer to any build-time variables defined inside the fragment itself. 
